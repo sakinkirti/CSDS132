@@ -1,0 +1,140 @@
+/** 
+ * Mohana's Java Final
+ * This is for practice for the real final
+ **/
+
+// Question 1
+public abstract class GamePiece {
+  String name;
+  Team side;
+  Location location;
+  
+  public Gamepiece(String n, Team s, Location l) {
+    this.name = n;
+    this.side = s;
+    this.location = l;
+  }
+  
+  // getter for name
+  public String getName() {
+    return this.name;
+  }
+  
+  // getter and setter for side
+  public void setSide(Team t) {
+    this.side = t;
+  }
+  public Team getSide() {
+    return this.side;
+  }
+  
+  // getter and setter for location
+  public void setLocation(Location l) {
+    this.location = l;
+  }
+  public Location getLocation() {
+    return this.location;
+  }
+  
+  // legalMove method tells whether a certain move is legal or not
+  // depends on the piece that this is an instance of
+  public abstract boolean legalMove(Location move) {
+  }
+  
+  // Question 2
+  @Override
+  public boolean equals(Object g) {
+    return this.getName() == g.getName() && this.getSide() == g.getSide();
+  }
+}
+
+// Question 3 
+public class CannonPiece extends GamePiece {
+  
+  public CannonPiece(Team s, Location l) {
+    super("Cannon", s, l);
+  }
+  
+  public boolean legalMove(Location move) {
+    return this.getLocation().getX() == move.getX() ^ this.getLocation().getY() == move.getY();
+  }
+}
+
+// Question 4
+public class DataFork<T> {
+  private T primaryPipe;
+  private T secondaryPipe;
+  
+  public DataFork<T>(T pF, T sF) {
+    this.primaryPipe = pF;
+    this.secondaryPipe = sF;
+  }
+  
+  // getter and setter for primaryFork
+  public T getPrimaryPipe() {
+    return this.primaryPipe;
+  }
+  public void setPrimaryPipe(T pF) {
+    this.primaryPipe = pF;
+  }
+  
+  // getter and setter for secondaryFork
+  public T getSecondaryPipe() {
+    return this.secondaryPipe;
+  }
+  public void setSecondaryPipe(T sF) {
+    this.secondaryPipe = sF;
+  }
+}
+
+// Question 5
+public class WriterFork extends DataFork<T> {
+  
+  public WriterFork(T pF, T sF) {
+    super(pf, sF);
+  }
+}
+
+// Question 6
+WriterFork<StringWriter> writer = new WriterFork<StringWriter>(new StringWriter(), new StringWriter());
+
+// Question 7
+public double closestBound(double value, double loBound, double hiBound) {
+  if(Math.abs(hiBound - value) < Math.abs(loBound - value))
+    return hiBound;
+  else
+    return loBound
+}
+
+// Question 8
+public String matchCapitalization(String first, String second) {
+  int length = Math.min(first.length(), second.length());
+  StringBuilder temp = new StringBuilder();
+  
+  for(int i = 0; i < length; i+=1) {
+    if(second.charAt(i).isUpperCase() == true)
+      temp.append(first.charAt(i).toUpperCase());
+    else if(second.charAt(i).isLowerCase() == true)
+      temp.append(first.charAt(i).toLowerCase());
+    else
+      temp.append(first.charAt(i));
+  }
+  
+  return temp.toString();
+}
+
+// Question 9
+public static void main (String[] args) {
+  String result;
+  for(int i = 0; i < args.length(); i += 1) {
+    if((double)args[i] >= 0)
+      result = (String) (Math.sqrt((double)args[i]));
+    else if((double)args[i] < 0)
+      result = (String) (Math.sqrt(Math.abs((double)args[i]))) + "i";
+    else
+      result = "Not a number";
+    
+    System.out.println(result);
+  }
+}
+

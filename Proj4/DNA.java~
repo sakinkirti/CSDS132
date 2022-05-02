@@ -1,0 +1,44 @@
+/**
+ * class to define DNA
+ * @author Sakin Kirti
+ */
+public class DNA {
+
+    // create a list to store the strand
+    DoubleLinkedList<Base> strand;
+
+    /**
+     * constructor to create DNA strand
+     * this creates a linked list which holds type Base
+     */
+    public DNA() {
+        strand = new DoubleLinkedList<Base>();
+    }
+
+    /**
+     * creates a string representation of DNA
+     * overrides toString of Object
+     * @return String - representation of the DNA
+     */
+    public String toString() {
+
+        // create a StringBuilder to hold the DNA string
+        StringBuilder nucleotides = new StringBuilder();
+
+        // iterate through the strand
+        for(Base base : strand) {
+            char letter = base.getClass().getFields();
+            nucleotides.append(letter);
+        }
+
+        return nucleotides.toString();
+    }
+
+    /**
+     * enum type that represents each of the bases
+     */
+    enum Base {
+        A, C, T, G;
+    }
+
+}

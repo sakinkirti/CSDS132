@@ -1,0 +1,95 @@
+
+/* creates a library account for the student */
+public class LibraryAccount extends Account {
+  
+  /* var to hold the account number */
+  private final String accountNum;
+  /* var to hold the balanceLim */
+  private int balanceLim;
+  /* var to hold the accountBalance */
+  private double accountBal;
+  /* create var to hold the book fine */
+  private double bookFine;
+  /* create var to hold the reserve fine */
+  private double reserveFine;
+  /* create var to hold the num of overdue books */
+  private int numOverdueBooks;
+  /* create var to hold num of overdue books in reserve */
+  private int numOverdueReserve;
+  
+  /* sets the book fine */
+  public void setBookFine(double d) {
+    this.bookFine = d;
+  }
+  
+  /* gets the book fine */
+  public double getBookFine() {
+    return this.bookFine;
+  }
+  
+  /* sets the reserve fine */
+  public void setReserveFine(double d) {
+    this.reserveFine = d;
+  }
+  
+  /* gets the reserve fine */
+  public double getReserveFine() {
+    return this.reserveFine;
+  }
+  
+  /* gets the number of overdue books */
+  public int getNumberOverdueBooks() {
+    return this.numOverdueBooks;
+  }
+  
+  /* gets the number of overdue reserve */
+  public int getNumberOverdueReserve() {
+    return this.numOverdueReserve;
+  }
+  
+/* ----------------------------------- */  
+  
+  /* constructor to set up the object */
+  public LibraryAccount(String accountNum, int balanceLim, double bookFine, double reservedItemFine) {
+    this.accountNum = accountNum;
+    this.balanceLim = balanceLim;
+    this.bookFine = bookFine;
+    this.reserveFine = reservedItemFine;
+  }
+  
+/* ----------------------------------- */  
+  
+  /* increases the number of overdue books when needed */
+  public int incrementOverdueBooks() {
+    numOverdueBooks = this.getNumberOverdueBooks() + 1;
+  }
+  
+  /* decreases the number of overdue books when needed */
+  public int decrementOverdueBooks() {
+    numOverdueBooks = this.getNumberOverdueBooks() - 1;
+  }
+  
+  /* increases the number of overude reserve books when needed */
+  public int incrementOverdueReserve() {
+    numOverdueReserve = this.getNumberOverdueReserve() + 1;
+  }
+  /* decreases the number of overdue reserve books when needed */
+  public int decrementOverdueReserve() {
+    numOverdueReserve = this.getNumberOverdueReserve() + 1;
+  }
+  
+  /* checks to see if you can borrow a book */
+  public boolean canBorrow() {
+    if (bookFine + reserveFine <= balanceLim)
+      return true;
+    else
+      return false;
+  }
+  
+  /* readjusts the balance at the end of the day */
+  public void endOfDay() {
+    accountBal = accountBal + ( this.getNumberOverdueBooks() * this.getBookFine() ) 
+      + ( this.getNumberOverdueReserve() * this.getReserveFine() );
+  }
+  
+}

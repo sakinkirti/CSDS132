@@ -1,0 +1,170 @@
+TESTING FOR ACCOUNT CLASS
+Welcome to DrJava.  Working directory is /Users/sakinkirti/Documents/DrJava/Proj 1
+
+CREATES THE ACCOUNT OBJECT/CLASS
+> Account a = new Account("h887afs63", 78)
+
+TESTS THE TWO METHODS THAT CAN GET THE VARIABLES SET BY THE CONSTRUCTOR
+> a.getAccountNum()
+"h887afs63"
+> a.getBalanceLim()
+78
+
+TESTS THE CHARGE METHOD AND THE GETCURRENTBAL METHOD
+> a.charge(78231.57)
+> a.getCurrentBal()
+78231.57
+
+TESTS THE CREDIT METHOD
+> a.credit(894.38)
+> a.getCurrentBal()
+77337.19
+
+TESTS THE SET AND GET BALANCELIM METHODS
+> a.setBalanceLim(83)
+> a.getBalanceLim()
+83
+> 
+
+TESTING FOR LIBRARYACCOUNT CLASS
+Welcome to DrJava.  Working directory is /Users/sakinkirti/Documents/DrJava/Proj 1
+
+CREATES LIBRARYACCOUNT CLASS/OBJECT
+> LibraryAccount l = new LibraryAccount("hs92hfi8h", 35, 1.50, 2.00)
+
+SET AND GET BOOK FINE
+> l.setBookFine(1.75)
+> l.getBookFine()
+1.75
+
+SET AND GET RESERVE FINE
+> l.setReserveFine(2.50)
+> l.getReserveFine()
+2.5
+
+INCREMENT, DECREMENT, AND GET OVERDUE BOOKS
+> l.incrementOverdueBooks()
+> l.getNumberOverdueBooks()
+1
+> l.decrementOverdueBooks()
+> l.getNumberOverdueBooks()
+0
+
+INCREMENT, DECREMENT, AND GET OVERDUE RESERVE
+> l.incrementOverdueReserve()
+> l.getNumberOverdueReserve()
+1
+> l.decrementOverdueReserve()
+> l.getNumberOverdueReserve()
+0
+
+CAN BORROW METHOD
+> l.canBorrow()
+true
+> l.setBookFine(30.00)
+> l.setReserveFine(20.00)
+> l.canBorrow()
+false
+
+END OF DAY METHOD
+> l.endOfDay()
+> l.getCurrentBal()
+0.0
+> 
+
+TESTING FOR CREDITACCOUNT CLASS
+Welcome to DrJava.  Working directory is /Users/sakinkirti/Documents/DrJava/Proj 1
+
+CREATES THE CREDITACCOUNT CLASS/OBJECT
+> CreditAccount c = new CreditAccount("724h9fho", 0.0284)
+
+SET AND GET INTEREST RATE
+> c.setInterestRate(0.047)
+> c.getInterestRate()
+0.047
+
+GET MONTHLY PAYMENT
+> c.getMonthlyPayment()
+0.0
+
+GET AMOUNT PAID THIS MONTH
+> c.getAmountPaidThisMonth()
+0.0
+
+INTERACTIONS BETWEEN ACCOUNT AND CREDITACCOUNT
+CHARGE METHOD OF ACCOUNT
+> c.charge(783649.64)
+
+OVERRIDE CREDIT METHOD
+> c.credit(78.39)
+> c.getAmountPaidThisMonth()
+78.39
+> c.getCurrentBal()
+783571.25
+
+END OF MONTH METHOD
+> c.endOfMonth()
+> c.getAmountPaidThisMonth()
+0.0
+> c.getMonthlyPayment()
+820399.09875
+> 
+
+TESTING FOR THE STUDENTACCOUNT CLASS
+Welcome to DrJava.  Working directory is /Users/sakinkirti/Documents/DrJava/Proj 1
+
+CREATING THE CLASS/OBJECT
+> StudentAccount e = new StudentAccount("k924ng084n", "ethan")
+
+SET/GET NAME AND ADDRESS METHODS
+> e.setAddress("8455 Squirrel Hill Drive")
+> e.getAddress()
+"8455 Squirrel Hill Drive"
+> e.setName("Dan")
+> e.getName()
+"Dan"
+
+SET METHODS FOR TUITION, DINING, AND LIBRARY ACCOUNTS (GET TUITION, LIBRARY, DINING ACCOUNT METHODS TESTING THROUGHOUT CODE IN CALLING METHODS OF SPECIFIC ACCOUNTS)
+> e.setTuitionAccount(new CreditAccount("o4o4inqpor", 0.015))
+> e.setLibraryAccount(new LibraryAccount("k2tr8weur7", 15, 1.5, 2.0))
+> e.setDiningAccount(new CreditAccount("l2842t9qgp", 0.047))
+
+OVERRIDEN CHARGE METHOD
+> e.charge(50924.0)
+
+DINING ACCOUNT CHARGE METHOD 
+> e.getDiningAccount().charge(12800.0)
+
+LIBRARY ACCOUNT INCREMENT OVERDUE BOOKS/RESERVE METHODS
+> e.getLibraryAccount().incrementOverdueReserve()
+> e.getLibraryAccount().incrementOverdueBooks()
+
+LIBRARY ACCOUNT END OF DAY
+> e.getLibraryAccount().endOfDay()
+
+STUDENT ACCOUNT GETCURRENTBAL METHOD
+> e.getCurrentBal()
+63727.5
+
+END OF MONTH METHOD FOR TUITION AND DINING ACCOUNTS
+> e.getTuitionAccount().endOfMonth()
+> e.getDiningAccount().endOfMonth()
+> e.getCurrentBal()
+63841.28833333333
+
+OVERRIDDEN CREDIT METHOD OF STUDENTACCOUNT
+> e.credit(15000.0)
+> e.getCurrentBal()
+48841.28833333333
+> e.credit(40000.0)
+> e.getCurrentBal()
+8841.288333333332
+> e.getTuitionAccount().endOfMonth()
+> e.getDiningAccount().endOfMonth()
+> e.getLibraryAccount().endOfDay()
+> e.getCurrentBal()
+8879.403004305554
+> e.credit(11000.0)
+> e.getCurrentBal()
+-2120.5969956944464
+>

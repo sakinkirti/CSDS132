@@ -1,0 +1,166 @@
+import junit.framework.TestCase;
+import java.util.NoSuchElementException;
+
+/** A JUnit test case class.
+  * Every method starting with the word "test" will be called when running
+  * the test with JUnit.
+  */
+public class DoubleLinkedListTester extends TestCase {
+  
+ /* ---------------------------------------------------------------- */
+  /* METHOD TESTING FOR DOUBLELINKEDLIST (Tested using the DNA class) */
+  /* ---------------------------------------------------------------- */
+  
+  /**
+   * tests whether getting the length of a DoubleLinkedList works
+   */
+  public void testGetLength() {
+    // test none
+    assertEquals("The actual length was 0, but the returned length was not", 0, new DNA().getLength());
+    // test one
+    assertEquals("The actual length was 1, but the returned length was not", 1, DNA.string2DNA("A").getLength());
+    // test many
+    assertEquals("The actual length was 2, but the returned length was not", 2, DNA.string2DNA("AT").getLength());
+    assertEquals("The actual length was 5, but the returned length was not", 5, DNA.string2DNA("ATCGT").getLength());
+    assertEquals("The actual length was 15, but the returned length was not", 15, DNA.string2DNA("CGGCGGATTTTTACT").getLength());
+  }
+  
+  /**
+   * tests whether adding to the front of a list works
+   * because this is a void method, it must be tested by some side effect
+   * uses getFront to verify the addition of the added node
+   */
+  public void testAddToFront() {
+    // test with empty list
+    DNA s = new DNA();
+    s.addToFront(DNA.Base.A);
+    assertEquals("adding to the front of an empty list did not work", DNA.Base.A, s.getFront().getElement());
+    // test with a list with predefined elements
+    DNA x = DNA.string2DNA("ATGC");
+    x.addToFront(DNA.Base.C);
+    assertEquals("adding to the front of a prefilled list did not work", DNA.Base.C, x.getFront().getElement()); 
+  }
+  
+  /**
+   * tests whether adding to the back of a list works
+   * since this is a void method, it must be tested by a side effect
+   * uses the getBack method to verify the addition of the added node
+   */
+  public void testAddToBack() {
+    // test with empty list
+    DNA s = new DNA();
+    s.addToBack(DNA.Base.A);
+    assertEquals("adding to the back of an empty list did not work", DNA.Base.A, s.getBack().getElement());
+    // test with a list with predefined elements
+    DNA x = DNA.string2DNA("ATGG");
+    x.addToBack(DNA.Base.C);
+    assertEquals("adding to the back of a prefilled list did not work", DNA.Base.C, x.getBack().getElement()); 
+  }
+  
+  /**
+   * tests whether removing from the front of a list works
+   * since this mothd throws an exception, we can check to see if the excepction is thrown
+   * or if the method results in the proper return
+   */
+  public void testRemoveFromFront() {
+    // test with empty list
+    DNA s = new DNA();
+    try { s.removeFromFront(); } 
+    catch(NoSuchElementException e) { assertEquals("remove from the front of an empty list did not work", 1, 1); }
+    // test with a list with one element
+    DNA y = DNA.string2DNA("T");
+    assertEquals("remove fron the front of a list with 1 element did not work", DNA.Base.T, y.removeFromFront());
+    // test with a list with predefined elements
+    DNA x = DNA.string2DNA("ATGG");
+    assertEquals("removing from the front of a prefilled list did not work", DNA.Base.A, x.removeFromFront()); 
+  }
+  
+  /**
+   * tests whether removing from the back of a list works
+   * since this mothd throws an exception, we can check to see if the excepction is thrown
+   * or if the method results in the proper return
+   */
+  public void testRemoveFromBack() {
+    // test with empty list
+    DNA s = new DNA();
+    try { s.removeFromBack(); } 
+    catch(NoSuchElementException e) { assertEquals("remove from the back of an empty list did not work", 1, 1); }
+    // test with a list with one element
+    DNA y = DNA.string2DNA("T");
+    assertEquals("remove fron the back of a list with 1 element did not work", DNA.Base.T, y.removeFromBack());
+    // test with a list with predefined elements
+    DNA x = DNA.string2DNA("ATGG");
+    assertEquals("removing from the back of a prefilled list did not work", DNA.Base.G, x.removeFromBack()); 
+  }
+  
+  /**
+   * tests whether the equals method of DoubleLinkedList works
+   * if two lists have the same length and same elements, they are equal
+   */
+  public void testEquals() {
+    // test case with no elements 'test none'
+    DNA strand1 = new DNA();
+    DNA strand2 = new DNA();
+    assertEquals("The test with no elements returned false", true, strand1.equals(strand2));
+    // test cases with one element 'test one'
+    strand1 = DNA.string2DNA("G");
+    strand2 = DNA.string2DNA("G");
+    assertEquals("The test with one element returned false when it should be true", true, strand1.equals(strand2));
+    strand1 = DNA.string2DNA("C");
+    strand2 = DNA.string2DNA("G"); 
+    assertEquals("The test with one element returned true when it should be false", false, strand1.equals(strand2));
+    // test cases with multiple elements 'test first, test middle, test last' and 'test many'
+    strand1 = DNA.string2DNA("GTCAG");
+    strand2 = DNA.string2DNA("GTCAG");
+    assertEquals("The test with many elements returned false when it should be true", true, strand1.equals(strand2));
+    strand1 = DNA.string2DNA("CTCAG");
+    strand2 = DNA.string2DNA("GTCAG"); 
+    assertEquals("The test with many elements returned true when it should be false (first)", false, strand1.equals(strand2));
+    strand1 = DNA.string2DNA("GTTAG");
+    strand2 = DNA.string2DNA("GTCAG"); 
+    assertEquals("The test with many elements returned true when it should be false (middle)", false, strand1.equals(strand2));
+    strand1 = DNA.string2DNA("GTCAA");
+    strand2 = DNA.string2DNA("GTCAG"); 
+    assertEquals("The test with many elements returned true when it should be false (last)", false, strand1.equals(strand2));
+  }
+  
+  /**
+   * tests whether appending two lists results in the correct list
+   * because append is a void method, it must be tested through its 'symptoms'
+   * I will use getLength to test this method
+   */
+  public void testAppend() {
+    // test none - no elements in either list
+    DNA strand1 = new DNA();
+    DNA strand2 = new DNA();
+    strand1.append(strand2);
+    assertEquals("The test with no elements returned something other than 0", 0, strand1.getLength());
+    // test one - 1 element in either list, or 1 in each list
+    DNA strand3 = DNA.string2DNA("G");
+    DNA strand4 = new DNA();
+    strand3.append(strand2);
+    assertEquals("The test where strand1 has 1 and strand2 has 0 elements returned something other than 1", 1, strand3.getLength());
+    DNA strand5 = new DNA();
+    DNA strand6 = DNA.string2DNA("T");
+    strand6.append(strand5);
+    assertEquals("The test where strand1 has 0 and strand2 has 1 elements returned something other than 1", 1, strand6.getLength());
+    DNA strand7 = DNA.string2DNA("G");
+    DNA strand8 = DNA.string2DNA("T");
+    strand7.append(strand8);
+    assertEquals("The test where strand1 has 1 and strand2 has 1 elements returned something other than 2", 2, strand7.getLength());
+    // test many - a few elements in each
+    DNA strand9 = DNA.string2DNA("GTCA");
+    DNA strand10 = DNA.string2DNA("TCGA");
+    strand9.append(strand10);
+    assertEquals("The test where strand1 has 4 and strand2 has 4 elements returned something other than 8", 8, strand9.getLength());
+  }
+  
+  /**
+   * tests the implementation of the Iterable interface with the iterator() method
+   * checks if the method returns the proper iterator
+   */
+  public void testIterator() {
+    
+  }
+  
+}
